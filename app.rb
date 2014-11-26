@@ -1,37 +1,26 @@
-require 'thin'
-require 'sinatra/base'
-require 'em-websocket'
+require 'sinatra'
+require 'sinatra-websocket'
 require 'slim'
 
-EventMachine.run do
-  class App < Sinatra::Base
-    configure do
-      set :server, %w[thin]
-    end
+set :server, 'thin'
+set :sockets, []
 
-    get '/' do
-      slim :index
-    end
-
-  end
-
-  # @clients = []
-
-  EM::WebSocket.start(:host => '0.0.0.0', :port => '3001') do |ws|
-    ws.onopen do |handshake|
-      # @clients = ws
-      ws.send "Connected to #{handshake.path}."
-    end
-
-    ws.onclose do |closed| 
-      p "Connection closed"
-    end
-
-    ws.onmessage do |msg|
-      puts "Recieved message: #{msg}"
-      ws.send "Pong: #{msg}"
+get '/' do
+  if !request.websocket?
+    slim :index
+  else
+    request.websocket do |ws|
+      ws.onopen do
+        ws.send("Hello World!")
+        settings.sockets << ws
+      end
+      ws.onmessage do |msg|
+        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+      end
+      ws.onclose do
+        warn("websocket closed")
+        settings.sockets.delete(ws)
+      end
     end
   end
-
-  # App.run! port: 3000
 end

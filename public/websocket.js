@@ -1,60 +1,20 @@
 $( document ).ready(function() {
-  function addMessage(msg) {
-    $("#chat-log").append("" + msg + "");
-  }
+ var show = function(el){
+    return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
+  }(document.getElementById('msgs'));
 
-  var socket, host;
-  host = "ws://localhost:3001";
+  var ws       = new WebSocket('ws://' + window.location.host + window.location.pathname);
+  ws.onopen    = function()  { show('websocket opened'); };
+  ws.onclose   = function()  { show('websocket closed'); }
+  ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
 
-  function connect() {
-    try {
-      socket = new WebSocket(host);
-
-      addMessage("Socket State: " + socket.readyState);
-
-      socket.onopen = function() {
-        addMessage("Socket Status: " + socket.readyState + " (open)");
-      }
-
-      socket.onclose = function() {
-        addMessage("Socket Status: " + socket.readyState + " (closed)");
-      }
-
-      socket.onmessage = function(msg) {
-        addMessage("Received: " + msg.data);
-      }
-    } catch(exception) {
-      addMessage("Error: " + exception);
+  var sender = function(f){
+    var input     = document.getElementById('input');
+    input.onclick = function(){ input.value = "" };
+    f.onsubmit    = function(){
+      ws.send(input.value);
+      input.value = "send a message";
+      return false;
     }
-  }
-
-  function send() {
-    var text = $("#message").val();
-    if (text == '') {
-      addMessage("Please Enter a Message");
-      return;
-    }
-
-    try {
-      socket.send(text);
-      addMessage("Sent: " + text)
-    } catch(exception) {
-      addMessage("Failed To Send")
-    }
-
-    $("#message").val('');
-  }
-
-  $('#message').keypress(function(event) {
-    if (event.keyCode == '13') { send(); }
-  });
-
-  $("#connect").click(function() {
-    connect();
-  });
-
-  $("#disconnect").click(function() {
-    socket.close()
-  });
-
+  }(document.getElementById('form'));
 });

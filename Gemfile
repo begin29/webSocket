@@ -2,6 +2,5 @@ source 'https://rubygems.org'
 
 gem 'thin'
 gem 'sinatra'
-gem 'em-websocket'
+gem 'sinatra-websocket'
 gem 'slim'
-gem 'sinatra-contrib'
