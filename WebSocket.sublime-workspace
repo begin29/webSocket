@@ -1,0 +1,925 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"A",
+				"Application"
+			],
+			[
+				"se",
+				"service_area"
+			],
+			[
+				"du",
+				"du_path_ids"
+			],
+			[
+				"sc",
+				"scheduling"
+			],
+			[
+				"tick",
+				"ticket_attrs"
+			],
+			[
+				"cu",
+				"customer_info"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Gemfile",
+			"settings":
+			{
+				"buffer_size": 107,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app.rb",
+			"settings":
+			{
+				"buffer_size": 622,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/websocket.js",
+			"settings":
+			{
+				"buffer_size": 1221,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/index.slim",
+			"settings":
+			{
+				"buffer_size": 318,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 96.0,
+		"selected_items":
+		[
+			[
+				"open",
+				"Gist: Open Gist"
+			],
+			[
+				"ope",
+				"Gist: Open Gist"
+			],
+			[
+				"diff",
+				"Git: Diff All Files"
+			],
+			[
+				"git di",
+				"Git: Diff All Files"
+			],
+			[
+				"di",
+				"Git: Diff All Files"
+			],
+			[
+				"cre",
+				"Gist: Create Private Gist"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"setti",
+				"Preferences: Settings - User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 521.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/vadik/projects/webSocket"
+	],
+	"file_history":
+	[
+		"/home/vadik/projects/webSocket/config.yml",
+		"/home/vadik/projects/webSocket/application.rb",
+		"/home/vadik/projects/webSocket/simple.html",
+		"/tmp/gistfile1.txt",
+		"/home/vadik/projects/Installio/app/views/admin/company/service_areas/_service_area.html.slim",
+		"/home/vadik/projects/Installio/app/views/service_areas/_service_area.html.slim",
+		"/home/vadik/projects/Installio/app/views/service_areas/show.html.slim",
+		"/home/vadik/projects/Installio/app/views/admin/company/service_areas/show.html.slim",
+		"/home/vadik/projects/Installio/app/views/admin/company/service_areas/_form.html.slim",
+		"/home/vadik/projects/Installio/app/views/shared/_division_units_selected.html.slim",
+		"/home/vadik/projects/Installio/app/helpers/service_areas_helper.rb",
+		"/tmp/development",
+		"/home/vadik/projects/Installio/app/models/service_area.rb",
+		"/home/vadik/projects/Installio/app/views/companies/set_usa_e_pay.html.slim",
+		"/home/vadik/projects/Installio/config/initializers/sidekiq.rb",
+		"/home/vadik/projects/Installio/spec/models/service_area_spec.rb",
+		"/home/vadik/projects/Installio/spec/models/user_spec.rb",
+		"/home/vadik/projects/Installio/app/views/service_areas/_service_areas.html.slim",
+		"/home/vadik/projects/Installio/config/initializers/secret_token.rb",
+		"/home/vadik/projects/Installio/app/assets/javascripts/service_areas.js.coffee",
+		"/home/vadik/projects/Installio/app/models/service.rb",
+		"/home/vadik/projects/Installio/app/controllers/admin/company/service_areas_controller.rb",
+		"/home/vadik/projects/Installio/db/migrate/20130617123556_add_company_profiles_specialties.rb",
+		"/home/vadik/projects/Installio/app/views/users/invitations/add_company.html.slim",
+		"/home/vadik/projects/Installio/app/controllers/discounts_controller.rb",
+		"/home/vadik/projects/Installio/app/decorators/controllers/forem/application_controller_decorator.rb",
+		"/home/vadik/projects/Installio/app/controllers/application_controller.rb",
+		"/home/vadik/projects/Installio/app/helpers/company_profiles_helper.rb",
+		"/home/vadik/projects/Installio/app/models/company.rb",
+		"/home/vadik/projects/Installio/spec/models/service_spec.rb",
+		"/home/vadik/projects/Installio/app/views/shared/_service.html.slim",
+		"/tmp/installio",
+		"/home/vadik/projects/Installio/app/models/location.rb",
+		"/home/vadik/projects/Installio/lib/tasks/initial_data.yml",
+		"/home/vadik/projects/Installio/README.md",
+		"/home/vadik/projects/Installio/app/models/ticket.rb",
+		"/home/vadik/projects/Installio/app/controllers/api/tickets_controller.rb",
+		"/home/vadik/projects/Installio/doc/Location.html",
+		"/home/vadik/projects/Installio/Gemfile.lock",
+		"/home/vadik/projects/Installio/doc/Company.html",
+		"/home/vadik/projects/Installio/db/migrate/20130911145355_add_ticket_profile_id_to_tickets.rb",
+		"/home/vadik/projects/Installio/db/migrate/20130607140916_add_parent_id_to_inventory.rb",
+		"/home/vadik/projects/Installio/app/controllers/tickets_controller.rb",
+		"/home/vadik/projects/Installio/config/environments/test.rb",
+		"/home/vadik/projects/Installio/app/workers/messages_worker.rb",
+		"/home/vadik/projects/Installio/app/models/notificationable_notification.rb",
+		"/home/vadik/projects/Installio/Gemfile",
+		"/home/vadik/projects/Installio/app/controllers/admin/ticket_profiles_controller.rb",
+		"/home/vadik/projects/Installio/app/controllers/invitations_controller.rb",
+		"/home/vadik/projects/Installio/app/models/picture.rb",
+		"/home/vadik/projects/Installio/app/models/ticket_profile.rb",
+		"/home/vadik/projects/Installio/app/workers/document_worker.rb",
+		"/home/vadik/projects/Installio/app/workers/recurrent_notifications_worker.rb",
+		"/home/vadik/projects/Installio/app/workers/attachment_check_worker.rb",
+		"/home/vadik/projects/Installio/spec/spec_helper.rb",
+		"/home/vadik/projects/Installio/doc/Specialty.html",
+		"/home/vadik/projects/Installio/doc/Specialization.html",
+		"/home/vadik/projects/Installio/config/puma.rb",
+		"/home/vadik/projects/Installio/app/models/work_order.rb",
+		"/home/vadik/projects/Installio/config/initializers/wickedpdf.rb",
+		"/home/vadik/projects/Installio/log/sidekiq.log",
+		"/home/vadik/projects/Installio/app/views/admin/reports/edit.html.slim",
+		"/home/vadik/projects/Installio/db/migrate/20140115140342_remove_division_unit_ids_from_enrollments.rb",
+		"/home/vadik/projects/Installio/db/migrate/20140128100541_remove_default_from_assignment_type.rb",
+		"/home/vadik/projects/Installio/db/migrate/20130924092824_remove_expirable_attachments.rb",
+		"/home/vadik/projects/Installio/Rakefile",
+		"/home/vadik/projects/Installio/app/models/service_inventory.rb",
+		"/home/vadik/projects/Installio/db/schema.rb",
+		"/home/vadik/projects/Installio/app/helpers/notifications_helper.rb",
+		"/tmp/ticket_workflow.txt",
+		"/home/vadik/projects/Installio/app/views/tickets/sections/_services.html.slim",
+		"/home/vadik/projects/Installio/app/helpers/services_helper.rb",
+		"/home/vadik/projects/Installio/app/helpers/inventories_helper.rb",
+		"/home/vadik/projects/Installio/app/views/tickets/show.html.slim",
+		"/home/vadik/projects/Installio/app/views/tickets/sections/_inventories.html.slim",
+		"/home/vadik/projects/Installio/app/helpers/tickets_helper.rb",
+		"/home/vadik/projects/Installio/db/migrate/20141119103443_add_rating_to_inventories_services.rb",
+		"/home/vadik/projects/Installio/spec/factories/inventory.rb",
+		"/home/vadik/projects/Installio/app/models/inventory.rb",
+		"/home/vadik/projects/Installio/app/models/inventory_region.rb",
+		"/home/vadik/projects/Installio/app/views/ticket_profiles/show.html.slim",
+		"/home/vadik/projects/Installio/spec/helpers/admin/ticket_profiles_helper_spec.rb",
+		"/home/vadik/projects/Installio/app/models/ticket_service.rb",
+		"/home/vadik/projects/Installio/app/controllers/sessions_controller.rb",
+		"/home/vadik/projects/Installio/simple.xlsx",
+		"/home/vadik/projects/Installio/db/migrate/20140116180506_add_column_amount_to_inventories_services.rb",
+		"/home/vadik/projects/Installio/db/migrate/20131025122503_add_model_to_notifications.rb",
+		"/home/vadik/projects/Installio/db/migrate/20130827143502_remove_attachable_from_attachments.rb",
+		"/home/vadik/projects/Installio/db/migrate/20131209140731_create_tag_groups.rb",
+		"/home/vadik/projects/Installio/solr/conf/mapping-ISOLatin1Accent.txt",
+		"/home/vadik/projects/Installio/app/models/message.rb",
+		"/home/vadik/projects/Installio/config/application.rb",
+		"/home/vadik/projects/Installio/app/controllers/locations_controller.rb",
+		"/home/vadik/projects/Installio/spec/factories/notification.rb",
+		"/home/vadik/projects/Installio/app/models/notification.rb",
+		"/home/vadik/projects/Installio/app/models/note.rb",
+		"/home/vadik/projects/Installio/app/models/notificationable_observer.rb",
+		"/home/vadik/projects/Installio/config/newrelic.yml",
+		"/home/vadik/projects/Installio/db/migrate/20131002140713_add_ticket_id_to_invoices.rb",
+		"/home/vadik/projects/Installio/config/initializers/redis.rb",
+		"/home/vadik/projects/Installio/app/models/division_unit.rb",
+		"/home/vadik/projects/Installio/app/views/companies/_form.html.slim",
+		"/home/vadik/projects/Installio/division_units.csv",
+		"/home/vadik/projects/Installio/spec/support/controller_macros.rb",
+		"/home/vadik/projects/Installio/config.ru",
+		"/home/vadik/projects/Installio/Capfile",
+		"/home/vadik/projects/Installio/db/migrate/20130904143332_drop_table_discounts_inventories.rb",
+		"/home/vadik/projects/Installio/app/models/discount.rb",
+		"/home/vadik/projects/Installio/db/migrate/20131022160111_add_column_usa_e_pay_customer_number_to_company.rb",
+		"/home/vadik/projects/Installio/app/models/company_profile_user.rb",
+		"/home/vadik/projects/Installio/spec/controllers/admin/company/service_areas_controller_spec.rb",
+		"/home/vadik/projects/Installio/db/migrate/20130827143554_add_status_to_attachments.rb",
+		"/home/vadik/projects/Installio/spec/models/attachment_spec.rb",
+		"/home/vadik/projects/Installio/doc/Installio.html",
+		"/home/vadik/projects/Installio/app/views/comments/_form.html.slim",
+		"/home/vadik/projects/Installio/app/views/attachments/_form.html.slim",
+		"/home/vadik/projects/Installio/app/views/attachments/_attachment.html.slim",
+		"/home/vadik/projects/Installio/app/models/ticket_inventory.rb",
+		"/home/vadik/projects/blog/Gemfile",
+		"/home/vadik/Dropbox/COMMANDS.todo",
+		"/home/vadik/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/vadik/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/vadik/font.sh",
+		"/etc/sysctl.conf"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"webrick",
+			"application",
+			"current_sp_owner",
+			"for_zip",
+			"customer_re",
+			"scheduling_id",
+			"customer_reference",
+			"customer_re",
+			"special_case",
+			"executor_location",
+			"desired_zip_id",
+			"location_short_name",
+			"side",
+			"thin",
+			"rspec-sidekiq",
+			"inve",
+			"servi",
+			"redis",
+			"=>",
+			"=> ",
+			" =>",
+			"=> ",
+			" =>",
+			"gmail",
+			"vm",
+			"vm.swappiness"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Gemfile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 107,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								40,
+								40
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 622,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								226,
+								226
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/websocket.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1208,
+								1208
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"auto_name": "",
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/index.slim",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								241,
+								241
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 118.0
+	},
+	"project": "WebSocket.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"a",
+				"app.rb"
+			],
+			[
+				"seraresho",
+				"app/views/admin/company/service_areas/show.html.slim"
+			],
+			[
+				"serareshow",
+				"app/views/service_areas/show.html.slim"
+			],
+			[
+				"ser_area.ht",
+				"app/views/service_areas/_service_area.html.slim"
+			],
+			[
+				"servi_areas.ht",
+				"app/views/service_areas/_service_areas.html.slim"
+			],
+			[
+				"shared/division_units_selected",
+				"app/views/shared/_division_units_selected.html.slim"
+			],
+			[
+				"adcompserareafor",
+				"app/views/admin/company/service_areas/_form.html.slim"
+			],
+			[
+				"_servi_area",
+				"app/views/admin/company/service_areas/_service_area.html.slim"
+			],
+			[
+				"ini",
+				"lib/tasks/initial_data.yml"
+			],
+			[
+				"company",
+				"app/models/company.rb"
+			],
+			[
+				"location",
+				"app/models/location.rb"
+			],
+			[
+				"apiticket",
+				"app/controllers/api/tickets_controller.rb"
+			],
+			[
+				"ticketco",
+				"app/controllers/tickets_controller.rb"
+			],
+			[
+				"ticket",
+				"app/models/ticket.rb"
+			],
+			[
+				"apitickco",
+				"app/controllers/api/tickets_controller.rb"
+			],
+			[
+				"spec",
+				"spec/spec_helper.rb"
+			],
+			[
+				"sidek",
+				"config/initializers/sidekiq.rb"
+			],
+			[
+				"lock",
+				"Gemfile.lock"
+			],
+			[
+				"worker",
+				"app/workers/attachment_check_worker.rb"
+			],
+			[
+				"ge",
+				"Gemfile.lock"
+			],
+			[
+				"sideki",
+				"config/initializers/sidekiq.rb"
+			],
+			[
+				"adtickproco",
+				"app/controllers/admin/ticket_profiles_controller.rb"
+			],
+			[
+				"noti",
+				"app/models/notificationable_notification.rb"
+			],
+			[
+				"",
+				"app/models/ticket_profile.rb"
+			],
+			[
+				"tickprorb",
+				"app/models/ticket_profile.rb"
+			],
+			[
+				"inven",
+				"app/helpers/inventories_helper.rb"
+			],
+			[
+				"tickets/sections/services",
+				"app/views/tickets/sections/_services.html.slim"
+			],
+			[
+				"tickets/sections/inventories",
+				"app/views/tickets/sections/_inventories.html.slim"
+			],
+			[
+				"tickshow",
+				"app/views/tickets/show.html.slim"
+			],
+			[
+				"schema",
+				"db/schema.rb"
+			],
+			[
+				"migraamount",
+				"db/migrate/20140116180506_add_column_amount_to_inventories_services.rb"
+			],
+			[
+				"appcontro",
+				"app/controllers/application_controller.rb"
+			],
+			[
+				"loca",
+				"app/models/location.rb"
+			],
+			[
+				"tickcontroller",
+				"app/controllers/tickets_controller.rb"
+			],
+			[
+				"ticketpro",
+				"app/models/ticket_profile.rb"
+			],
+			[
+				"divis",
+				"app/models/division_unit.rb"
+			],
+			[
+				"compa",
+				"app/models/company.rb"
+			],
+			[
+				"_form",
+				"app/views/companies/_form.html.slim"
+			],
+			[
+				"tickpro",
+				"app/models/ticket_profile.rb"
+			],
+			[
+				"test",
+				"config/environments/test.rb"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/projects/Installio.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 268.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
