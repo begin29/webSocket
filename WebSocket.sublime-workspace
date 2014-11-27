@@ -35,7 +35,7 @@
 			"file": "Gemfile",
 			"settings":
 			{
-				"buffer_size": 107,
+				"buffer_size": 90,
 				"line_ending": "Unix"
 			}
 		},
@@ -43,15 +43,28 @@
 			"file": "app.rb",
 			"settings":
 			{
-				"buffer_size": 622,
+				"buffer_size": 1859,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "1. What is WebSocket?\n2. What is happening under hood?\n3. Use cases.\n4. Can I use WebSocket? (browser support, the most popular frameworks and languages support)\n5. Example (some load test and debug result)\n\n45хв-1год\n\n\n\n\n\nWhat is TCP?\n\nHTTP problems\n  - many TCP connections for send/reseive information\n  - The client-side script maintain forced connections between outgoing and incoming connections\n\nWebSocket Protocol provides single TCP connection for both direct. It works with WebSocketApi (WSAPI)\n\nWebSocket supersede existing bidirectional communication technologies that use HTTP as a transport layer\n   designed to work over HTTP ports 80 and 443 as well as to support HTTP proxies and intermediaries\n   design does not limit WebSocket to HTTP, and future implementations could use a simpler handshake over a dedicated port without reinventing the entire protocol\n   traffic patterns of interactive messaging do not closely match standard HTTP traffic and can induce unusual loads on some components\n\n###Protocol Overview\n  The protocol has two parts: a handshake and the data transfer.\n\n   The handshake from the client looks as follows:\n\n      GET /chat HTTP/1.1\n      Host: server.example.com\n      Upgrade: websocket\n      Connection: Upgrade\n      Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\n      Origin: http://example.com\n      Sec-WebSocket-Protocol: chat, superchat\n      Sec-WebSocket-Version: 13\n\n   The handshake from the server looks as follows:\n\n      HTTP/1.1 101 Switching Protocols\n      Upgrade: websocket\n      Connection: Upgrade\n      Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=\n      Sec-WebSocket-Protocol: chat\n\n  Once the client and server have both sent their handshakes, and if the handshake was successful, then the data transfer part starts.\n  The WebSocket message does not necessarily correspond to a particular network layer framing(NLF), as a fragmented message may be coalesced or split by an intermediary\n\n  NLF - has begind and end of the packet in the stream of symbols or bits\n\n  Each frame belonging to the same message contains the same type of data\n  Broadly speaking, there are types for textual data  binary data and control frames (instead for protocol-level signaling, that the connection should be closed)\n  This version of the protocol defines 6 frame types and leaves 10 reserved for future use.\n\n##Opening handshakes\n  The opening handshake is intended to be compatible with HTTP-based server-side software and intermediaries\n  GET /chat HTTP/1.1  - URI that identify the endpoint of the WebSocket connection\n  Host: server.example.com\n  Upgrade: websocket\n  Connection: Upgrade\n  Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==  - for approve handshake server take this string minus before and after string whitespaces and plus Globally Unique Identifier(hex in 16 value). Example {21EC2020-3AEA-4069-A2DD-08002B30309D} and returned of SHA-1 hash (160 bits), base64-encoded form from this string. (cancatenated: dGhlIHNhbXBsZSBub25jZQ==258EAFA5-E914-47DA-95CA- C5AB0DC85B11; sha-1: 0xb3 0x7a 0x4f 0x2c 0xc0 0x62 0x4f 0x16 0x90 0xf6 0x46 0x06 0xcf 0x38 0x59 0x45 0xb2 0xbe 0xc4 0xea; base64-encoded: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=)\n  Origin: http://example.com - header is used to protect against unauthorized cross-origin use of a WebSocket server by scripts using the WebSocket API in a web browser. Header sends by browser clients; for non-browser clients, this header field may be sent if it makes sense in the context of those clients.\n  Sec-WebSocket-Protocol: chat, superchat - server subprotocols is application-level protocols layered over the WebSocket Protocol and means acceptable to the client subprotocols\n  Sec-WebSocket-Version: 13\n  Sec-WebSocket-Extensions - list of extensions support by the clien\n\n  response from server\n    HTTP/1.1 101 Switching Protocols - 101 it means that handshacke is accepted\n    Upgrade: websocket\n    Connection: Upgrade\n    Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  - interpreted with GUI hash\n\n  Sec-WebSocket-Protocol send subprotocol to client where client can verify that the server included one of client subprotocol. And server speaks that choose one based on its handshakes.\n\n  MUST be no more than one connection in a CONNECTING state. \n  client can limit the number of simultaneous pending connections. it makes harder for a script to perform a denial-of- service attack by just opening a large number of WebSocket connections to a remote host.\n  Without limit to the number of established WebSocket connections a client can have with a single remote host. Servers can refuse to accept connections from hosts/IP addresses with an excessive number of existing connections or disconnect resource- hogging connections when suffering high load.\n\n  If the connection could not be opened, either because a direct connection failed or because any proxy used returned an error, then the client MUST _Fail the WebSocket Connection_ and abort the connection attempt\n\n  ###_Proxy Usage_. client SHOULD connect to that proxy and ask it to open a TCP connection to the host given by /host/ and the port given by /port/.\n\n  If /secure/ is true, client MUST perform a TLS handshake over the connection after opening the connection and before sending the handshake data. If this fails client MUST _Fail the WebSocket Connection_ and abort the connection or all further communication on this channel MUST run through the encrypted tunnel.\n\n  client MUST send an opening handshake to the server:\n    1 handshake MUST be a valid HTTP request\n    2. The method of the request MUST be GET and the HTTP version MUST be at least 1.1.\n    3. \"Request-URI\" part of the request MUST match the /resource name/ or http/https URI\n    4. The request MUST contain a |Host| and port\n    5. The request MUST contain an |Upgrade| header field whose value MUST include the \"websocket\" keyword.\n    6.  The request MUST contain a |Connection| header field whose value MUST include the \"Upgrade\" token.\n    7.  The request MUST include a header field with the name |Sec-WebSocket-Key| with 16-byte value that has been base64-encoded.\n    8. The request MUST include a header field with the name |Origin| if the request is coming from a browser client.if non-browser request MAY include in need for client semantic. \n    9. The request MUST include a header field with the name |Sec-WebSocket-Version|. Val must be 13\n    10. The request MAY include a header field with the name |Sec-WebSocket-Protocol|. this value indicates one or more comma-separated subprotocol the client wishes to speak, ordered by preference.\n    11. The request MAY include a header field with the name |Sec-WebSocket-Extensions|. If present, this value indicates the protocol-level extension(s) the client wishes to speak.\n    12.  The request MAY include cookies, authentication-related header fields\n\n  Client wait and validate responce\n    1. If not 101, the client handles the response per HTTP procedures. client might perform authentication if it receives a 401 status code; the server might redirect the client using a 3xx status code.\n    2. If not |Upgrade| header field or the |Upgrade| with is not an ASCII case- insensitive match for the value \"websocket\", the client MUST _Fail the WebSocket Connection_.\n    3. If the response lacks a |Connection| header field or the |Connection| header field doesn't contain a token that is an ASCII case-insensitive match for the value \"Upgrade\", the client MUST _Fail the WebSocket Connection_.\n    4. If If the response lacks a |Sec-WebSocket-Accept| header field or the |Sec-WebSocket-Accept| is invalid(not hex for SHA), client fail connection.\n    5. the server has indicated an extension not requested by the client), the client MUST _Fail the WebSocket Connection.\n    6. the server has indicated a subprotocol not requested by the client), the client MUST _Fail the WebSocket Connection_.\n\n    all header field names are case-insensitive.\n\n    A data center send handshakes and passed connection to server to process data frames. \n\n  ###Reading the Client's Opening Handshake\n    1.An HTTP/1.1 or higher GET request, including a \"Request-URI\" that should be interpreted as a /resource name/\n    2.A |Host| header field containing the server's authority\n    3.An |Upgrade| header field containing the value \"websocket\", treated as an ASCII case-insensitive value\n    4. A |Connection| header field that includes the token \"Upgrade\", treated as an ASCII case-insensitive value.\n    5.A |Connection| header field that includes the token \"Upgrade\", treated as an ASCII case-insensitive value.\n    6. A |Sec-WebSocket-Version| header field, with a value of 13.\n    7. Should be |Origin| header field. If without then client is not browser-base\n    8. A |Connection| header field that includes the token \"Upgrade\", treated as an ASCII case-insensitive value.\n    9.A |Connection| header field that includes the token \"Upgrade\", treated as an ASCII case-insensitive value.\n    10. cookies and authentication.\n\n  ###Sending the Server's Opening Handshake\n    1.If the connection is happening on an HTTPS (HTTP-over-TLS) port, perform a TLS handshake over the connection\n    2. The server can perform additional client authentication\n    3. The server MAY redirect the client using a 3xx status code\n    4. establish /origin/ , /key/, /version/,resource name,subprotocol,extensions.\n    5. If the server chooses to accept the incoming connection\n      - A Status-Line with a 101 response code\n      - An |Upgrade| header field with value \"websocket\" as per\n      - A |Connection| header field with value \"Upgrade\".\n      - A |Sec-WebSocket-Accept| header field like ##Opening handshakes-> ##Opening handshakes\n      - Optionally, a |Sec-WebSocket-Protocol| header field\n      -  |Sec-WebSocket-Extensions| header field, with a value /extensions/\n\n  ###Supporting Multiple Versions of WebSocket Protocol\n    send\n       GET /chat HTTP/1.1\n      Host: server.example.com\n      Upgrade: websocket\n      Connection: Upgrade\n      ...\n      Sec-WebSocket-Version: 25\n\n    get\n      HTTP/1.1 400 Bad Request\n      ...\n      Sec-WebSocket-Version: 13, 8, 7\n\n    client send again\n      GET /chat HTTP/1.1\n      Host: server.example.com\n      Upgrade: websocket\n      Connection: Upgrade\n      ...\n      Sec-WebSocket-Version: 13\n\n  ### Data framing\n    a client MUST mask all frames that it sends to the server. The server MUST close the connection upon receiving a\n    frame that is not masked. In this case, a server MAY send a Close frame with a status code of 1002.  A server MUST NOT mask any frames that it sends to the client.  A client MUST close a connection if it detects a masked frame. In this case, it MAY use the status code 1002.  A data frame MAY be transmitted by either the client/server at any time after opening handshake completion and before that endpoint has sent a Close frame.\n    Data Frames examples 0x1 (Text), 0x2 (Binary). 0x3-0x7 -reserved for non-control frames.\n    Data frames carry application-layer and/or extension-layer data\n\n  ###Sending and Receiving Data\n    ####Sending and Receiving Data\n      1.The endpoint MUST ensure the WebSocket connection is in the OPEN state\n      2. An endpoint MUST encapsulate the /data/ in a WebSocket frame. If the data to be sent is large endpoint may encapsulate data in a series of frames.\n      3. Opcode of the first frame containing the data MUST be set to the appropriate value for recipient interpretation.\n      4. The FIN bit  MUST be set to 1\n      5. If the data is being sent by the client, the frame(s) MUST be masked\n      6. Additional extensions should be registered.\n      7. The frame(s) that have been formed MUST be transmitted over the underlying network connection.\n    ####Reseiving data\n      Incoming data MUST be parsed as WebSocket frames.\n      If a control frame is received, the frame MUST be handled\n      Upon receiving a data frame the endpoint MUST note the /type/ of the data. The \"Application data\" from this frame is defined as the /data/ of the message.\n      If the frame comprises an unfragmented message it is said that _A WebSocket Message Has Been Received_ with type /type/ and data /data/.\n      If the frame is part of a fragmented message data from message is contacted to /data/\n      When the last fragment is received as indicated by the FIN bit (frame-fin) WebSocket Message Has Been Received_ with data /data/ and /type/\n      Extensions MAY change the semantics of how data is read including message boundary. Extensions, in addition to adding \"Extension data\", also can modify \"Application data\".\n      A server MUST remove masking for data frames received from a client.\n\n  ### Close the WebSocket Connection\n    endpoint MAY close the connection via any means available when necessary\n    SHOULD be closed first by the server\n\n    * (CF)Control frames are used to communicate state about the WebSocket.\n    * Ping frame(0x9) - may serve to verify that the remote endpoint is still responsive.\n      Upon receipt of a Ping frame, an endpoint MUST send a Pong frame\n    * Pong frame(0xA)\n\n\n## Closing hanshake\n  One of them(client/server) send frame with data containing a specified control sequence to begin the closing handshake. other peer sends a Close frame in response, if it hasn't already sent one. then the first peer then closes the connection, safe in the knowledge that no further data is forthcoming. After sending/receiving control frame indicating the connection should be closed. The closing handshake is intended to complement the TCP closing\n   handshake (FIN/ACK) that the TCP closing handshake is not always reliable end-to-end, especially in the presence of intercepting proxies and other intermediaries.\n\n  intercepting proxy - intercepts normal communication at the network layer without requiring any special client configuration\n\n  if a socket is closed with data in the receive queue then send RST packet. Function for receive data from socket (recv() ) is fall.\n\n  ### Fail the WebSocket Connection\n    Client MUST _Close the WebSocket Connection_, and MAY report the problem to the user\n    server MUST _Close the WebSocket Connection_, and SHOULD log the problem.\n    endpoint SHOULD send a Close frame with an appropriate status code\n    An endpoint MUST NOT continue to attempt to process data\n\n  ###Abnormal Closures\n    Client-Initiated Closure\n      If at any point the underlying transport layer connection is unexpectedly lost, the client MUST _Fail the WebSocket Connection_. In other cases clients SHOULD NOT close the connection.\n    Server closure\n      server _Abort the WebSocket Connection_ during the opening handshake\n\n    Closure connect when client try to many times connect to server when it lost connect and wants to recovery this.\n    Client choose between 0 and 5 sec interval and try to reconnect. If first reconnect is fail the next one is try after longer time.\n\n  ###Normal Closure of Connections\n    Servers MAY close the WebSocket connection whenever desired.\n    Clients SHOULD NOT close the WebSocket connection arbitrarily.\n    endpoint initiates a closure by following the procedures to _Start the WebSocket Closing Handshake\n\n  ### Defined Status Codes\n    1000 indicates a normal closure\n    1001 indicates that an endpoint is \"going away\", such as a server going down or a browser having navigated away from a page\n    1002 indicates that an endpoint is terminating the connection due to a protocol error\n    1003 indicates that an endpoint is terminating the connection because it has received a type of data it cannot accept\n    1004 Reserved for future\n    1005 use in applications expecting a status code to indicate that no status code was actually present. Not use for close frames.\n    1006 use in applications expecting a status code to indicate that the connection was closed abnormally.\n    1007 endpoint is terminating the connection because it has received data within a message that was not consistent with the type of the message(e.g., non-UTF-8 within a text message)\n    1008 indicates that an endpoint is terminating the connection because it has received a message that violates its policy.\n    1009 indicates that an endpoint is terminating the connection because it has received a message that is too big for it to process.\n    1010 indicates that an endpoint (client) is terminating the connection because it has expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake\n    1011 indicates that a server is terminating the connection because it encountered an unexpected condition that prevented it from fulfilling the request.\n    1015 when can`t verified TSL handshake.\n    0-999 are not used\n    1000-2999 its future revisions and extensions specified\n    3000-3999 reserved for use by libraries, frameworks, and applications\n    4000-4999 reserved for private use and thus can't be registered\n\n  ###Error Handling\n    When an endpoint expect valid stream as UTF-8 but find invalid, endpoint MUST _Fail the WebSocket Connection_.\n    clients MAY request extensions to this specification, and WebSocket servers MAY accept some or all extensions requested by the client\n    server MUST NOT respond with any extension not requested by the client\n\n    Example extension\n      Sec-WebSocket-Extensions: foo, bar; baz=2\n    client MUST NOT use extension unless the server indicates that it wishes to use\n    order of extensions is significant\n    client first options listed being most preferable extension\n    the extensions listed by the server in response represent the extensions actually in use for the connection\n    extensions should modify the data and/or framing, the order of operations on the data should be assumed to be the same as the order in which the extensions are listed in the server's response\n\n  ###Security Considerations\n    WebSocket Protocol protects malicious JavaScript inside trusted application such as a web browser\n    if it used directly by host  a server should not trust that any input is valid.\n    Server should check the origin. If origin is unacceptable to the server, then it SHOULD respond to the WebSocket handshake with a reply containing HTTP 403 Forbidden status code\n    The |Origin| header field protects from the attack cases when the untrusted party is typically the author of a JavaScript application that is executing in the context of the trusted client.\n\n    The general form of the attack was to establish a connection to a server under the \"attacker's\" control, perform an UPGRADE on the HTTP connection. Data are sending through this connection. (like a GET request for a specific known resource ). The remote server would respond with something that looked like a response to the fake GET request. This response would be cached by a nonzero percentage of deployed intermediaries, thus poisoning the cache. Attacker could potentially poison the cache for that user and other users behind the same cache and run malicious script on other origins, compromising the web security model.\n    For avoid this attack you should protect data framing, and not compliant via HTTP.\n    Client should mask all data from the client to the server, so that the remote script (attacker) does not have control over how the data being sent appears on the wire and thus cannot construct a message that could be misinterpreted by an intermediary as an HTTP request.\n    Clients MUST choose a new masking key for each frame, using an algorithm that cannot be predicted by end applications that provide data.\n    In short, once transmission of a frame begins, the contents must not be modifiable by the remote script (application).\n    Implementation SHOULD impose a limit on frame sizes and the total message size after reassembly from multiple frames.\n    Server can identify client not only handshakes and other type such as cookies, HTTP authentication, or TLS authentication.\n\n    We have protect connection through TLS. WebSocket implementations MUST support TLS and SHOULD employ it. Connections using TLS, the amount of benefit provided by TLS depends greatly on the strength of the algorithms negotiated during the TLS handshake.\n\n    Incoming data MUST always be validated by both clients and servers. If data violates some criteria by which the endpoint determines safety of input or not expect value receive by server with opening handshake, the MAY drop the TCP connection. If the invalid data was received after a successful WebSocket handshake, the endpoint SHOULD send a Close frame with an appropriate status code before proceeding to _Close the WebSocket Connection_.\n    If the invalid data is sent during the WebSocket handshake, the server SHOULD return an appropriate HTTP status code.\n    A common class of security problems arises when sending text data using the wrong encoding.\n\n  ###Sec-WebSocket-Version\n    Client sends to server specific protocol versions of the connection. Server also sends this header if doesn't accepts this version.\n\n\n## Design Philosophy\n\n  principle that there should be minimal framing (the only framing that exists is to make the protocol frame-based instead of stream-based and to support a distinction between Unicode text and binary frames)\n\n  WebSocket is really just a layer on top of TCP.\n    This adds a web origin-based security model(SM) for browsers.\n    Adds an addressing and protocol naming mechanism to support multiple services on one port and multiple host names on one IP address\n    includes an additional closing handshake that is designed to work in the presence of proxies and other intermediaries\n\n  Other than that, WebSocket adds nothing. Basically it is intended to be as close to just exposing raw TCP to script as possible given the constraints of the Web. intent of WebSockets is to provide a relatively simple protocol that can coexist with HTTP and deployed HTTP infrastructure (such as proxies) and be close to TCP on secured level with targeted additions to simplify usage and keep simple things simple.\n\n  SM - origin model used by web browsers to restrict which web pages can contact a WebSocket server when the WebSocket Protocol is used from a web page. Is useful if client not a browser. This protocol is intended to fail to establish a connection with servers of pre-existing protocols like SMTP and HTTP. This is achieved by having a strict and elaborate handshake and by limiting the data that can be inserted into the connection before the handshake is finished.\n\n  WebSocket Protocol uses port 80 for regular WebSocket connections and port 443 for WebSocket connections tunneled over Transport Layer Security\n\n##Establishing a Connection. the connection will appear to the HTTP server to be a regular GET request with an Upgrade offer\n\n## Subprotocols Using the WebSocket Protocol. subprotocol names should be registered. recommended to use names that contain the ASCII version of the domain name of the subprotocol's originator. If Subprotocols can be versioned like \"bookings.example.net\" to \"v2.bookings.example.net\" then WebSocket considered completely separate this. In this way supports kind of extensibility.\n\n## WebSocket URIs\n\n  ws-URI = \"ws:\" \"//\" host [ \":\" port ] path [ \"?\" query ], port 80\n  wss-URI = \"wss:\" \"//\" host [ \":\" port ] path [ \"?\" query ] , port default 443\n\n\n  the server has to prove to the client that it received the client's WebSocket handshake. if server doesn't accept\n   connections that are not WebSocket connections. This protected from XMLHttpRequest or form submit attacker.\n\n\nUseCases\n  games, stock tickers, multiuser applications with simultaneous editing, user interfaces exposing server-side services in real time",
+			"file": "/tmp/gistfile1.txt",
+			"file_size": 23794,
+			"file_write_time": 130615471541518199,
+			"settings":
+			{
+				"buffer_size": 23789,
+				"line_ending": "Unix",
+				"name": "gistfile1.txt",
+				"scratch": true
 			}
 		},
 		{
 			"file": "public/websocket.js",
 			"settings":
 			{
-				"buffer_size": 1221,
+				"buffer_size": 755,
 				"line_ending": "Unix"
 			}
 		},
@@ -59,7 +72,15 @@
 			"file": "views/index.slim",
 			"settings":
 			{
-				"buffer_size": 318,
+				"buffer_size": 311,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "views/one_chanel.slim",
+			"settings":
+			{
+				"buffer_size": 0,
 				"line_ending": "Unix"
 			}
 		}
@@ -71,11 +92,11 @@
 		"selected_items":
 		[
 			[
-				"open",
+				"ope",
 				"Gist: Open Gist"
 			],
 			[
-				"ope",
+				"open",
 				"Gist: Open Gist"
 			],
 			[
@@ -132,10 +153,11 @@
 	},
 	"expanded_folders":
 	[
-		"/home/vadik/projects/webSocket"
+		"/home/vmocuk/projects/webSocket"
 	],
 	"file_history":
 	[
+		"/home/vmocuk/projects/webSocket/redmond.rb",
 		"/home/vadik/projects/webSocket/config.yml",
 		"/home/vadik/projects/webSocket/application.rb",
 		"/home/vadik/projects/webSocket/simple.html",
@@ -321,7 +343,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -330,15 +352,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 107,
+						"buffer_size": 90,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								40,
-								40
+								0,
+								0
 							]
 						],
 						"settings":
@@ -408,7 +430,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -417,15 +439,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 622,
+						"buffer_size": 1859,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								618,
-								618
+								547,
+								547
 							]
 						],
 						"settings":
@@ -433,51 +455,26 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
@@ -487,32 +484,93 @@
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content"
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
 							],
-							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 216.0,
+						"translation.y": 378.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "public/websocket.js",
+					"file": "/tmp/gistfile1.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1221,
+						"buffer_size": 23789,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1208,
-								1208
+								206,
+								206
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"do-update": true,
+							"gist_description": "Speak theme",
+							"gist_filename": "gistfile1.txt",
+							"gist_html_url": "https://gist.github.com/d702d84b4128859fd990",
+							"gist_url": "https://api.github.com/gists/d702d84b4128859fd990",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "public/websocket.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 755,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								174,
+								174
 							]
 						],
 						"settings":
@@ -521,6 +579,41 @@
 							"auto_name": "",
 							"bh_regions":
 							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
@@ -531,53 +624,107 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "views/index.slim",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 311,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								311,
+								311
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
 								"bh_c_define",
 								"bh_c_define_center",
 								"bh_c_define_open",
 								"bh_c_define_close",
 								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
 							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -587,20 +734,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "views/index.slim",
+					"buffer": 5,
+					"file": "views/one_chanel.slim",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 318,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								241,
-								241
+								0,
+								0
 							]
 						],
 						"settings":
@@ -608,6 +755,41 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
@@ -618,59 +800,25 @@
 								"bh_default_open",
 								"bh_default_close",
 								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
 								"bh_square_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content"
+								"bh_unmatched_content"
 							],
+							"open_with_edit": true,
 							"syntax": "Packages/Ruby Slim/Syntaxes/Ruby Slim.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
