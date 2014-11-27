@@ -11,15 +11,16 @@ $( document ).ready(function() {
         var i = 0;
         while(i < value){ connect(i); i++;}
       } catch(e){show(e);};
+      return false;
     };
-  }($('#emulate'));
+  }(document.getElementById('emulate'));
 
   var connect = function(n){
     var ws_array = [];
     ws_array[n] = new WebSocket('ws://' + window.location.host + window.location.pathname);
-    ws.onopen    = function()  { console.log('websocket opened'); };
-    ws.onclose   = function()  { console.log('websocket closed'); }
-    ws.onmessage = function(m) { console.log('websocket message: ' +  m.data); };
+    ws_array[n].onopen    = function()  { console.log('websocket opened'); };
+    ws_array[n].onclose   = function()  { console.log('websocket closed'); }
+    ws_array[n].onmessage = function(m) { console.log('websocket message: ' +  m.data); };
   };
 
 
