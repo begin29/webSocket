@@ -3,8 +3,10 @@ html
   head
     script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
     script type="text/javascript" src="websocket.js"
+    link rel="stylesheet" type="text/css" href="websocket.css"
+
   body
-    h1 Send One message to different clients
+    h1 Simple chat "#{chat_name}"
     form id="form"
       input type="text" id="input" value="send a message"
     button id='connect' style='margin-top: 5px;'

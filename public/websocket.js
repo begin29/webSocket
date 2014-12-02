@@ -11,8 +11,8 @@ $( document ).ready(function() {
     color = random_val + client.substr(client.length - 3);
     b.onclick = function(){
       ws       = new WebSocket('ws://' + window.location.host + window.location.pathname+ '?color='+color);
-      ws.onopen    = function()  { show('websocket opened'); };
-      ws.onclose   = function()  { show('websocket closed'); }
+      ws.onopen    = function()  { show('<p class="system">websocket opened</p>'); };
+      ws.onclose   = function()  { show('<p class="system">websocket closed</p>'); ws = ''; }
       ws.onmessage = function(m) { show(m.data); };
       $(this).hide();
       $('#disconnect').show();
@@ -27,17 +27,21 @@ $( document ).ready(function() {
     return false;
   });
 
+  $('#input').focusout(function() { 
+    $('#input').val('send a message'); 
+  });
+
   var sender = function(f){
     var input     = document.getElementById('input');
     input.onclick = function(){ input.value = "" };
     f.onsubmit    = function(){
-      if(typeof ws !== 'undefined')
+      if(typeof ws !== 'undefined' && ws !== '')
       {
         send_object = ws.send(client+': ' + input.value);
-        input.value = "send a message";
+        input.value = "";
       }
       else{
-        alert('please connect to WebSocket server');
+        alert('Please connect to WebSocket server');
       };
       return false;
     }
