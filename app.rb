@@ -5,84 +5,39 @@ require 'slim'
 set :server, 'thin'
 set :sockets, []
 
-get '/' do
+get '/:id' do
   if !request.websocket?
-    slim :index
+    slim :one_chanel, locals: {chat_name: params[:id]}
   else
     request.websocket do |ws|
+      channel = params[:id]
+      @con = {channel: channel, socket: ws, color: params[:color] || 'FFFFFF'}
       ws.onopen do
-        ws.send("Hello World!")
-        settings.sockets << ws
+        ws.send("Hello From WebSocket Server! <br\>")
+        settings.sockets << @con
       end
       ws.onmessage do |msg|
-        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
+        return_array = []
+        settings.sockets.each do |hash|
+          if hash[:channel] == channel
+            return_array << hash
+            p "Same channel"
+          else
+            p hash[:channel]
+            p "Not in same channel"
+          end
+        end
+        EM.next_tick { return_array.each{|s| s[:socket].send("<p style='color:##{params[:color]}'>#{msg}</p>") } }
       end
       ws.onclose do
         warn("websocket closed")
-        settings.sockets.delete(ws)
-      end
-    end
-  end
-end
-
-get '/one_message/:id' do
-  if !request.websocket?
-    slim :one_chanel
-  else
-      request.websocket do |ws|
-          channel = params[:id]
-          @con = {channel: channel, socket: ws}
-          ws.onopen do
-              ws.send("Hello World!")
-              settings.sockets << @con
+        settings.sockets.each do |hash|
+          if hash[:socket] == ws
+            settings.sockets.delete(hash)
+          else
+            p "not deleted"
           end
-          ws.onmessage do |msg|
-              return_array = []
-              settings.sockets.each do |hash|
-                  #puts hash
-                  #puts hash['channel']
-                  if hash[:channel] == channel
-                      #puts hash[:socket]
-                      return_array << hash
-                      puts "Same channel"
-                      puts return_array
-                  else
-                      puts hash[:channel]
-                      puts channel
-                      puts "Not in same channel"
-                  end
-              end
-              EM.next_tick { return_array.each{|s| s[:socket].send(msg) } }
-          end
-          ws.onclose do
-              warn("websocket closed")
-              settings.sockets.each do |hash|
-                  if hash[:socket] == ws
-                      settings.sockets.delete(hash)
-                      puts "deleted"
-                  else
-                      puts "not deleted"
-                  end
-              end
-          end
-      end
-  end
-end
-
-get '/emulate' do
-  if !request.websocket?
-    slim :emulate
-  else
-    request.websocket do |ws|
-      ws.onopen do
-        settings.sockets << ws
-      end
-      ws.onmessage do |msg|
-        EM.next_tick { settings.sockets.each{|s| s.send(msg) } }
-      end
-      ws.onclose do
-        warn("websocket closed")
-        settings.sockets.delete(ws)
+        end
       end
     end
   end
